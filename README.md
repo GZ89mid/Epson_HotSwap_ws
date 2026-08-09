@@ -117,14 +117,12 @@ ros2 launch ess_imu_driver2 imu_hub_launch.py
 sudo apt install -y ros-humble-ros-base python3-colcon-common-extensions
 source /opt/ros/humble/setup.bash
 
-# 2. Clone 主仓库
-cd ~
+# 2. Clone 主仓库 (src/ess_imu_driver2 是 submodule, clone 后目录为空)
 git clone https://github.com/GZ89mid/Epson_HotSwap_ws.git
 cd Epson_HotSwap_ws
 
-# 3. 拉取核心驱动 (src/ess_imu_driver2 是嵌套的独立仓库,
-#    clone 主仓库后该目录为空, 必须单独拉取)
-git clone https://github.com/cubicleguy/ess_imu_driver2.git src/ess_imu_driver2
+# 3. 拉取 submodule (核心驱动, 一条命令)
+git submodule update --init --recursive
 
 # 4. 编译 (build/ install/ log/ 为产物, 不入库)
 colcon build --symlink-install
@@ -135,6 +133,9 @@ ros2 launch ess_imu_driver2 imu_hub_launch.py
 ```
 
 > 私有仓库需要先配置 GitHub 访问权限 (SSH key 或 Personal Access Token)。
+
+> **只 clone 主仓库即可**:`src/ess_imu_driver2` 是主仓库的 submodule, 用
+> `git submodule update --init --recursive` 一条命令拉取, 无需单独 clone 两次。
 
 ---
 
@@ -163,7 +164,7 @@ git push -u origin main
 | 事项 | 说明 |
 |------|------|
 | 编译产物 | `build/ install/ log/` 已被 `.gitignore` 排除, 不要 `git add` 它们 |
-| 嵌套仓库 | `src/ess_imu_driver2` 内的改动要在它自己的仓库里单独 `add/commit/push` |
+| submodule | `src/ess_imu_driver2` 内的改动要在它自己的仓库里单独 `add/commit/push`, 然后回主仓库 `git add src/ess_imu_driver2` 更新指针 |
 | 推送失败 | 远端有更新时先 `git pull --rebase` 再 `git push` |
 | 提交信息 | 写清改了什么, 方便回滚 |
 
