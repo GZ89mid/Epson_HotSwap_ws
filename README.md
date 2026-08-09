@@ -90,8 +90,9 @@ ls -l /dev/ttyACM*
 # 2. 启动 ROS2 环境
 source /opt/ros/humble/setup.bash
 cd ~/Epson_HotSwap_ws
-
+colcon build
 # 3. 启动驱动 (核心, 只此一步)
+source install/setup.bash
 ros2 launch ess_imu_driver2 imu_hub_launch.py
 ```
 
