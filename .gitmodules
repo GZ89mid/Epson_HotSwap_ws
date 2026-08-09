@@ -1,0 +1,3 @@
+[submodule "src/ess_imu_driver2"]
+	path = src/ess_imu_driver2
+	url = https://github.com/cubicleguy/ess_imu_driver2.git
