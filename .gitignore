@@ -3,6 +3,9 @@ build/
 install/
 log/
 
+# VS Code 本地配置
+.vscode/
+
 # Python
 __pycache__/
 *.pyc
